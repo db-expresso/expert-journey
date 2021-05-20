@@ -17,7 +17,7 @@ exports.signup = (req, res) => {
         error: "User already exist",
       });
 
-    const { fistName, lastName, email, password } = req.body;
+    const { firstName, lastName, email, password } = req.body;
     const hash_password = await bcrypt.hash(password, 10);
     const _user = new User({
       firstName,

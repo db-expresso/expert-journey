@@ -31,5 +31,6 @@ mongoose
   });
 app.use(cors());
 app.use("/api", loginRoute);
+app.use("/api", productRoute);
 
 app.listen(process.env.PORT);
