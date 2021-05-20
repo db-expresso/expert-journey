@@ -20,7 +20,9 @@ mongoose.connect(
     useNewUrlParser: true,
     useUnifiedTopology: true,
   }
-);
+).then(()=>{
+    console.log('DB connected');
+});
 
 app.use(bodyParser());
 app.get("/", (req, res, next) => {
