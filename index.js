@@ -13,7 +13,7 @@ const bodyParser = require("body-parser");
 
 //Routes
 const loginRoute = require("./src/routes/login");
-const productRoute = require("./src/routes/product");
+const productRoute = require("./src/routes/inventory");
 
 //Database Connection
 mongoose
