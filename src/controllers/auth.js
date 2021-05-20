@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 
 const generateJwtToken = (_id, role) => {
   return jwt.sign({ _id, role }, process.env.JWT_SECRET, {
-    expiresIn: "4h",
+    expiresIn: "1d",
   });
 };
 
@@ -25,6 +25,7 @@ exports.signup = (req, res) => {
       email,
       hash_password,
     });
+
     _user.save((error, user) => {
       if (error) {
         return res.status(400).json({
