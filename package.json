@@ -25,7 +25,9 @@
     "body-parser": "^1.19.0",
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
-    "express-validator": "^6.11.1"
+    "express-validator": "^6.11.1",
+    "mongodb": "^3.6.7",
+    "mongoose": "^5.12.10"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
