@@ -1,8 +1,8 @@
 "use strict";
 
-const { json } = require("body-parser");
+// const { json } = require("body-parser");
 
-const jwt = requre("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 
 exports.requireSignin = (req, res, next) => {
   if (req.headers.authorization) {

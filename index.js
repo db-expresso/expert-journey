@@ -14,6 +14,7 @@ const bodyParser = require("body-parser");
 //Routes
 const loginRoute = require("./src/routes/login");
 const productRoute = require("./src/routes/inventory");
+const profile= require('./src/routes/login');
 
 //Database Connection
 mongoose
@@ -33,5 +34,6 @@ app.use(cors());
 app.use(express.json());
 app.use("/api", loginRoute);
 app.use("/api", productRoute);
+app.use('/api',profile);
 
 app.listen(process.env.PORT);
