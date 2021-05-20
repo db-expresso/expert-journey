@@ -45,26 +45,24 @@ exports.signup = (req, res) => {
 };
 
 exports.login = (req, res) => {
-  User.findOne(
-    { email: req.body.email }.exec(async (error, user) => {
-      if (error) return res.status(400).json({ error });
-      if (user) {
-        const isPassword = await user.authenticate(req.body.password);
-        if (isPassword && user.role === "user") {
-          const token = generateJwtToken(user._id, user.role);
-          const { _id, firstName, lastName, email, role, fullName } = user;
-          res.status(200).json({
-            token,
-            user: { _id, firstName, lastName, email, role, fullName },
-          });
-        } else {
-          return res.status(400).json({
-            message: "something went wrong",
-          });
-        }
+  User.findOne({ email: req.body.email }).exec(async (error, user) => {
+    if (error) return res.status(400).json({ error });
+    if (user) {
+      const isPassword = await user.authenticate(req.body.password);
+      if (isPassword) {
+        const token = generateJwtToken(user._id, user.role);
+        const { _id, firstName, lastName, email, role, fullName } = user;
+        res.status(200).json({
+          token,
+          user: { _id, firstName, lastName, email, role, fullName },
+        });
       } else {
-        return res.status(400).json({ message: "Something wernt wrong" });
+        return res.status(400).json({
+          message: "something went wrong",
+        });
       }
-    })
-  );
+    } else {
+      return res.status(400).json({ message: "Something went wrong" });
+    }
+  });
 };
