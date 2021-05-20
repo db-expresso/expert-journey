@@ -44,6 +44,7 @@ exports.signup = (req, res) => {
   });
 };
 
+
 exports.login = (req, res) => {
   User.findOne({ email: req.body.email }).exec(async (error, user) => {
     if (error) return res.status(400).json({ error });
@@ -66,3 +67,17 @@ exports.login = (req, res) => {
     }
   });
 };
+
+
+//User profile response
+exports.profile = (req, res)=>{
+    User.findOne({email: req.body.email}).exec(async(error,user)=>{
+        if(error) return res.status(400).json({error});
+        if(user){
+            const { _id, firstName, lastName, email, role, fullName } = user;
+            res.status(200).json({
+                user:{_id, firstName, lastName, email, role, fullName}
+            });
+        }
+    });
+}

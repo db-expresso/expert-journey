@@ -2,25 +2,19 @@
 
 const mongoose = require('mongoose');
 
-const productSchema = new mongoose.Schema({
-    productName:{
+const inventorySchema = new mongoose.Schema({
+    inventoryName:{
         type:String,
         trim: true,
         min:5,
         max:30,
         required:true
     },
-    productId:{
+    inventoryId:{
         type:String,
-        min:3,
-        max:8,
         unique:true,
         index: true,
         lowercase:true
-    },
-    price:{
-        type: Number,
-        required:true
     },
     quantity:{
         type:Number,
@@ -28,4 +22,4 @@ const productSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('product');
+module.exports = mongoose.model('Inventory', inventorySchema);
