@@ -7,6 +7,6 @@ const { requireSignin } = require("../middlewares");
 
 router.post("/signup", signup);
 router.post("/login", login);
-router.post("/login/profile", profile);
+router.post("/login/profile", requireSignin, profile);
 
 module.exports = router;

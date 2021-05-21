@@ -9,11 +9,10 @@ const cors = require("cors");
 const env = require("dotenv");
 env.config();
 
-const bodyParser = require("body-parser");
+const { requireSignin } = require("./src/middlewares");
 
 //Routes
 const loginRoute = require("./src/routes/login");
-const productRoute = require("./src/routes/inventory");
 const profile= require('./src/routes/login');
 const inventoryRoutes= require('./src/routes/inventory');
 
@@ -34,8 +33,7 @@ mongoose
 app.use(cors());
 app.use(express.json());
 app.use("/api", loginRoute);
-app.use("/api", productRoute);
 app.use('/api',profile);
-app.use('/api',inventoryRoutes);
+app.use('/api',requireSignin,inventoryRoutes);
 
 app.listen(process.env.PORT);
