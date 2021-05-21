@@ -14,7 +14,7 @@ exports.signup = (req, res) => {
   User.findOne({ email: req.body.email }).exec(async (error, user) => {
     if (user)
       return res.status(400).json({
-        error: "User already exist",
+        message: "User already exist",
       });
 
     const { firstName, lastName, email, password } = req.body;
@@ -26,15 +26,16 @@ exports.signup = (req, res) => {
       hash_password,
     });
 
-    _user.save((error, user) => {
+    _user.save((error, data) => {
+      console.log(data);
       if (error) {
         return res.status(400).json({
           message: "Something went wrong",
         });
       }
-      if (user) {
-        const token = generateJwtToken(user._id, user.role);
-        const { _id, firstName, lastName, email, role, fullName } = user;
+      if (data) {
+        const token = generateJwtToken(_user._id, _user.role);
+        const { _id, firstName, lastName, email, role, fullName } = _user;
         return res.status(201).json({
           token,
           user: { _id, firstName, lastName, email, role, fullName },
@@ -43,7 +44,6 @@ exports.signup = (req, res) => {
     });
   });
 };
-
 
 exports.login = (req, res) => {
   User.findOne({ email: req.body.email }).exec(async (error, user) => {
@@ -68,16 +68,15 @@ exports.login = (req, res) => {
   });
 };
 
-
 //User profile response
-exports.profile = (req, res)=>{
-    User.findOne({email: req.body.email}).exec(async(error,user)=>{
-        if(error) return res.status(400).json({error});
-        if(user){
-            const { _id, firstName, lastName, email, role, fullName } = user;
-            res.status(200).json({
-                user:{_id, firstName, lastName, email, role, fullName}
-            });
-        }
-    });
-}
+exports.profile = (req, res) => {
+  User.findOne({ email: req.body.email }).exec(async (error, user) => {
+    if (error) return res.status(400).json({ error });
+    if (user) {
+      const { _id, firstName, lastName, email, role, fullName } = user;
+      res.status(200).json({
+        user: { _id, firstName, lastName, email, role, fullName },
+      });
+    }
+  });
+};
