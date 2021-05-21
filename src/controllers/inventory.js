@@ -35,16 +35,35 @@ exports.deleteInventory = async (req, res) => {
 exports.updateInventory = async (req, res) => {
   const item = await (
     await inventory.findOne({ inventoryId: req.params.inventoryId })
-  ).execPopulate();
-  if (!item ) {
-     res.status(400).json({ message: "Inventory not found" });
-     res.redirect('api/create-inventory');
-
+  ).exec();
+  if (!item) {
+    res.status(400).json({ message: "Inventory not found" });
+    res.redirect("api/create-inventory");
   } else {
     await inventory.findByIdAndUpdate(item._id, {
       inventoryName: req.body.inventoryName,
       quantity: req.body.quantity,
     });
-    res.status(201).json({message:"Successful Update"});
+    res.status(201).json({ message: "Successful Update" });
+  }
+};
+
+exports.searchInventory = async (req, res) => {
+  const item = await inventory
+    .findOneAndUpdate({ inventoryId: req.params.inventoryId })
+    .exec();
+  if (!item) {
+    res.status(400).json({ message: "Inventory not found" });
+  } else {
+    res.status(201).json({ item });
+  }
+};
+
+exports.listAllInvetory = async (req, res) => {
+  const item = await inventory.find().exec();
+  if (!item) {
+    res.status(400).json({ message: "Inventory not found" });
+  } else {
+    res.status(201).json({ item });
   }
 };
