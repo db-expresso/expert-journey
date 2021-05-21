@@ -20,11 +20,10 @@ exports.createInventory = (req, res) => {
 };
 
 exports.deleteInventory = async (req, res) => {
-  console.log(req.params);
-  //const { inventoryName, inventoryId, quantity } = req.body;
-  //const id = req.params.id;
-  const item = await inventory.findOne({inventoryId: req.params.inventoryId}).exec();
-  console.log(item);
+  const item = await inventory
+    .findOne({ inventoryId: req.params.inventoryId })
+    .exec();
+
   if (!item) {
     return res.status(400).json({ message: "Inventory not found" });
   } else {
@@ -33,8 +32,19 @@ exports.deleteInventory = async (req, res) => {
   }
 };
 
-exports.updateInventory = (req, res) => {
-  const { inventoryName, inventoryId, quantity } = req.body;
-  if (item) {
+exports.updateInventory = async (req, res) => {
+  const item = await (
+    await inventory.findOne({ inventoryId: req.params.inventoryId })
+  ).execPopulate();
+  if (!item ) {
+     res.status(400).json({ message: "Inventory not found" });
+     res.redirect('api/create-inventory');
+
+  } else {
+    await inventory.findByIdAndUpdate(item._id, {
+      inventoryName: req.body.inventoryName,
+      quantity: req.body.quantity,
+    });
+    res.status(201).json({message:"Successful Update"});
   }
 };
