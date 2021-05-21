@@ -33,12 +33,11 @@ exports.deleteInventory = async (req, res) => {
 };
 
 exports.updateInventory = async (req, res) => {
-  const item = await (
-    await inventory.findOne({ inventoryId: req.params.inventoryId })
-  ).exec();
+  const item = inventory
+    .findOne({ inventoryId: req.params.inventoryId })
+    .exec();
   if (!item) {
     res.status(400).json({ message: "Inventory not found" });
-    res.redirect("api/create-inventory");
   } else {
     await inventory.findByIdAndUpdate(item._id, {
       inventoryName: req.body.inventoryName,
