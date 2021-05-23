@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-import app from "./app";
 
 /**
  * @param {string} process.env.DATABASE
@@ -17,6 +16,7 @@ process.on('uncaughtException', (err) => {
 });
 
 dotenv.config({ path: './config.env' });
+const app = require('./app');
 
 let DB = process.env.DATABASE.replace(
   '<password>',
@@ -28,6 +28,7 @@ mongoose
   .connect(DB, {
     useNewUrlParser: true,
     useCreateIndex: true,
+    autoIndex: true,
     useUnifiedTopology: true,
   })
   // eslint-disable-next-line no-console
@@ -40,8 +41,10 @@ const server = app.listen(port, () => {
 });
 
 process.on('unhandledRejection', (err) => {
+  // eslint-disable-next-line no-console
   console.log('UNHANDLED REJECTION! 💥 Shutting down...');
-  console.log(err);
+  // eslint-disable-next-line no-console
+  console.log(err, err.message);
   server.close(() => {
     process.exit(1);
   });

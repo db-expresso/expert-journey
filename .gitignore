@@ -5,10 +5,7 @@ node_modules/
 config
 .vs
 .vscode
-.env
-/.env-prod
-/.env-stage
-.env.test
+*.env
 /dist/
 logs
 .DS_Store

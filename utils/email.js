@@ -1,22 +1,18 @@
-import nodemailer from "nodemailer";
-import mailgun from "nodemailer-mailgun-transport";
-import pug from "pug";
-import htmlToText from "html-to-text";
+const nodemailer = require('nodemailer');
+const mailgun = require('nodemailer-mailgun-transport');
+const pug = require('pug');
+const htmlToText = require('html-to-text');
 
-class Email {
-  firstName: string;
-  to: string;
-  url: string;
-  from: string;
-  constructor(user: any, url: string) {
-    this.to = user.email;
-    this.firstName = user.name.split(" ")[0];
+module.exports = class Email {
+  constructor(business, url) {
+    this.to = business.email;
+    this.firstName = business.name.split(' ')[0];
     this.url = url;
     this.from = `Expresso <${process.env.EMAIL}>`;
   }
 
-  static newTransport(): any {
-    if (process.env.NODE_ENV === "production") {
+  newTransport() {
+    if (process.env.NODE_ENV === 'production') {
       return nodemailer.createTransport(
         mailgun({
           auth: {
@@ -38,7 +34,7 @@ class Email {
   }
 
   // Send the actual email
-  public async send(template: string, subject: string): Promise<any> {
+  async send(template, subject) {
     // 1) Render HTML based on a pug template
     const html = pug.renderFile(`${__dirname}/../views/email/${template}.pug`, {
       firstName: this.firstName,
@@ -55,34 +51,32 @@ class Email {
       text: htmlToText.fromString(html),
       attachments: [
         {
-          filename: "logo.png",
+          filename: 'logo.png',
           path: `${__dirname}/../public/images/logo.png`,
-          cid: "logo",
+          cid: 'logo',
         },
       ],
     };
 
     // 3) Create a transport and send email
-    await Email.newTransport().sendMail(mailOptions, (err) => {
+    await this.newTransport().sendMail(mailOptions, (err) => {
       if (err) {
         // eslint-disable-next-line no-console
-        return console.log("Error occurs");
+        return console.log('Error occurs');
       }
       // eslint-disable-next-line no-console
-      return console.log("Email sent!!!");
+      return console.log('Email sent!!!');
     });
   }
 
-  async welcome(): Promise<any> {
-    await this.send("welcome", "Welcome to My App !");
+  async sendWelcome() {
+    await this.send('welcome', 'Welcome to the Expresso Family!');
   }
 
-  async sendPasswordReset(): Promise<any> {
+  async sendPasswordReset() {
     await this.send(
-      "passwordReset",
-      "Your password reset token (valid for only 10 minutes)"
+      'passwordReset',
+      'Your password reset token (valid for only 10 minutes)'
     );
   }
-}
-
-export default Email;
+};

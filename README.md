@@ -11,10 +11,10 @@ This is a NodeJS application meant to serve as a REST API for a SAAS project, yo
 
 ## Endpoints
 
-#### User
+#### Business
 - Sign up
 - Login
-- User Information
+- Business Information
 
 #### Inventory
 - Create item
