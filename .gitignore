@@ -1,0 +1,12 @@
+node_modules/*
+node_modules
+node_modules/
+.idea
+config
+.vs
+.vscode
+*.env
+/dist/
+logs
+.DS_Store
+public/developmentData
