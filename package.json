@@ -1,0 +1,42 @@
+{
+  "name": "expert-journey",
+  "version": "1.0.0",
+  "description": "Backend Test for expresso",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "node index.js",
+    "start-dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanielOkyere/expert-journey.git"
+  },
+  "keywords": [
+    "expert-journey"
+  ],
+  "author": "daniel Okyere",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DanielOkyere/expert-journey/issues"
+  },
+  "homepage": "https://github.com/DanielOkyere/expert-journey#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^9.0.2",
+    "express": "^4.17.1",
+    "express-validator": "^6.11.1",
+    "helmet": "^4.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.6.7",
+    "mongoose": "^5.12.10"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^8.4.0",
+    "nodemon": "^2.0.7"
+  }
+}
