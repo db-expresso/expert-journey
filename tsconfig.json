@@ -20,5 +20,5 @@
     "src/**/*",
     "e2e/**/*",
     "test/**/*"
-  ]
+, "src/database/seeds/.seed.ts"  ]
 }
