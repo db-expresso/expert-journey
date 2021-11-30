@@ -7,7 +7,7 @@ export default registerAs(
         language: process.env.APP_LANGUAGE || 'en',
         http: {
             host: process.env.APP_HOST || 'localhost',
-            port: parseInt(process.env.APP_PORT) || 3000
+            port: parseInt(process.env.APP_PORT) || 4000
         },
 
         debug: process.env.APP_DEBUG === 'true' ? true : false,

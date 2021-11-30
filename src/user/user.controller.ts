@@ -49,7 +49,6 @@ export class UserController {
 
 
     @Post('/create')
-    @AuthJwtGuard()
     @Response('user.create')
     async create(
         @Body(RequestValidationPipe)
