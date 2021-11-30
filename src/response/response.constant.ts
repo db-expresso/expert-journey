@@ -1,3 +1,0 @@
-export enum ENUM_STATUS_CODE_SUCCESS {
-    LOGIN_SUCCESS = 1001
-}
