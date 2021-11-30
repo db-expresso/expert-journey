@@ -15,7 +15,7 @@ app.use(express.static(`${__dirname}/public`));
 app.use(routes);
 
 app.get('/', (req, res) => {
-  res.status(200).json({ message: 'welcome to expeert journey' });
+  res.status(200).json({ message: 'welcome to expert journey' });
 });
 connect();
 // finally, let's start our server...
